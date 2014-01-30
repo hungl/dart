@@ -87,5 +87,21 @@ void RevoluteJoint::updateJacobianTimeDeriv() {
   assert(mdS == math::Jacobian::Zero(6, 1));
 }
 
+void RevoluteJoint::init(int _skelIndex) {
+  Joint::init(_skelIndex);
+
+  switch (mInputType) {
+    case TORQUE:
+
+      break;
+    case ACCELERATION:
+
+      break;
+    default:
+      assert(0 && "Invalid InputType.");
+      break;
+  }
+}
+
 }  // namespace dynamics
 }  // namespace dart

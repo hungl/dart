@@ -746,6 +746,25 @@ void Skeleton::computeForwardDynamics() {
   }
 }
 
+void Skeleton::computeHybridDynamics() {
+  // Skip immobile or 0-dof skeleton
+  if (!isMobile() || getNumGenCoords() == 0)
+    return;
+
+  // Backward recursion
+  for (std::vector<BodyNode*>::reverse_iterator it = mBodyNodes.rbegin();
+       it != mBodyNodes.rend(); ++it) {
+    (*it)->updateBiasForce(mTimeStep, mGravity);
+  }
+
+  // Forward recursion
+  for (std::vector<BodyNode*>::iterator it = mBodyNodes.begin();
+       it != mBodyNodes.end(); ++it) {
+    (*it)->update_ddq();
+    (*it)->update_F_fs();
+  }
+}
+
 void Skeleton::setInternalForceVector(const Eigen::VectorXd& _forces) {
   set_tau(_forces);
 }

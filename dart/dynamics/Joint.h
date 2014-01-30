@@ -63,6 +63,13 @@ public:
   //--------------------------------------------------------------------------
   // Types
   //--------------------------------------------------------------------------
+  // TODO(JS): Find better name if possible. ActuationType, ActType, ...
+  /// \brief Input type.
+  enum InputType {
+    ACCELERATION,
+    TORQUE,
+  };
+
   /// \brief
   enum JointType {
     WELD,           // 0-dof
@@ -100,6 +107,12 @@ public:
   //--------------------------------------------------------------------------
   /// \brief
   JointType getJointType() const;
+
+  /// \brief Set input type.
+  void setInputType(InputType _inputType);
+
+  /// \brief Get input type.
+  InputType getInputType() const;
 
   /// \brief
   const Eigen::Isometry3d& getLocalTransform() const;
@@ -208,6 +221,10 @@ public:
   void applyGLTransform(renderer::RenderInterface* _ri);
 
 protected:
+  /// \brief Initialize this joint. This function will be called in
+  ///        BodyNode::init().
+  virtual void init(int _skelIndex);
+
   /// \brief
   /// q --> T(q)
   virtual void updateTransform() = 0;
@@ -275,6 +292,9 @@ protected:
 
   /// \brief
   std::vector<double> mRestPosition;
+
+  /// \brief Input type.
+  InputType mInputType;
 
 private:
   /// \brief Type of joint e.g. ball, hinge etc.

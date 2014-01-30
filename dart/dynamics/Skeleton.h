@@ -269,6 +269,9 @@ public:
     /// \brief (q, dq, tau) --> (ddq)
     void computeForwardDynamics();
 
+    /// \brief Compute hybridy dynamics.
+    void computeHybridDynamics();
+
     //--------------------------------------------------------------------------
     // Rendering
     //--------------------------------------------------------------------------

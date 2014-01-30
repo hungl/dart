@@ -50,6 +50,7 @@ Joint::Joint(JointType _type, const std::string& _name)
   : mName(_name),
     mSkelIndex(-1),
     mJointType(_type),
+    mInputType(TORQUE),
     mIsPositionLimited(true),
     mT_ParentBodyToJoint(Eigen::Isometry3d::Identity()),
     mT_ChildBodyToJoint(Eigen::Isometry3d::Identity()),
@@ -69,6 +70,14 @@ const std::string& Joint::getName() const {
 
 Joint::JointType Joint::getJointType() const {
   return mJointType;
+}
+
+void Joint::setInputType(InputType _inputType) {
+  mInputType = _inputType;
+}
+
+Joint::InputType Joint::getInputType() const {
+  return mInputType;
 }
 
 const Eigen::Isometry3d&Joint::getLocalTransform() const {
@@ -127,6 +136,11 @@ const Eigen::Isometry3d&Joint::getTransformFromChildBodyNode() const {
 
 void Joint::applyGLTransform(renderer::RenderInterface* _ri) {
   _ri->transform(mT);
+}
+
+void Joint::init(int _skelIndex) {
+  assert(0 <= _skelIndex && "Invalid skeleton index");
+  mSkelIndex = _skelIndex;
 }
 
 void Joint::setDampingCoefficient(int _idx, double _d) {

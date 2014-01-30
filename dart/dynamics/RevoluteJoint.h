@@ -72,6 +72,9 @@ public:
   virtual void updateJacobianTimeDeriv();
 
 protected:
+  // Documentation inherited.
+  virtual void init(int _skelIndex);
+
   /// \brief
   GenCoord mCoordinate;
 
