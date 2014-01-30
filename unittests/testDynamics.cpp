@@ -66,6 +66,9 @@ public:
   // each body in _skel.
   MatrixXd getAugMassMatrix(dynamics::Skeleton* _skel);
 
+  // Get generalized momentum using ... in _skel.
+  Vector6d getMomentum(dynamics::Skeleton* _skel, const Vector3d& _position);
+
   // Compare velocities computed by recursive method, Jacobian, and finite
   // difference.
   void compareVelocities(const std::string& _fileName);
@@ -78,6 +81,9 @@ public:
   // inverse matrix, Coriolis force vector, gravity force vector, and external
   // force vector.
   void compareEquationsOfMotion(const std::string& _fileName);
+
+  //
+  void testMomentum(const std::string& _fileName);
 
 protected:
   // Sets up the test fixture.
@@ -192,6 +198,23 @@ MatrixXd DynamicsTest::getAugMassMatrix(dynamics::Skeleton* _skel)
   AugM = M + (dt * D) + (dt * dt * K);
 
   return AugM;
+}
+
+Vector6d DynamicsTest::getMomentum(Skeleton* _skel, const Vector3d& _position)
+{
+  Vector6d   H = Vector6d::Zero();
+  Isometry3d T = Isometry3d::Identity();
+
+  int nBodies  = _skel->getNumBodyNodes();
+  int dof      = _skel->getNumGenCoords();
+
+  for (int i = 0; i < nBodies; ++i)
+  {
+    BodyNode* body = _skel->getBodyNode(i);
+
+  }
+
+  return H;
 }
 
 //==============================================================================

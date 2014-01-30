@@ -253,6 +253,17 @@ public:
     /// \brief Get potential energy of this skeleton.
     virtual double getPotentialEnergy() const;
 
+    // TODO(JS): Not implemented yet.
+    /// \brief Get generalized momentum at a point _offset from the origin of
+    ///        the local frame.
+    /// \param[in] _offset Offset from the origin of the local frame.
+    /// \param[in] _isOffsetLocal True if _offset is decribed in local frame.
+    ///                           False if _offset is decribed in world frame.
+    /// \return 6-dimensional vector. The first 3 values are for angular
+    ///         momentum and the last 3 values are for linear momentum.
+    virtual Eigen::Vector6d getMomentum(const Eigen::Vector3d& _offset,
+                                        bool _isOffsetLocal = true) const;
+
     //--------------------------------------------------------------------------
     // Recursive dynamics algorithms
     //--------------------------------------------------------------------------
